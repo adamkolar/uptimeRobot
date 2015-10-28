@@ -136,7 +136,7 @@ class UptimeRobot
      * @param bool  $showTimezone               optional    Defines if the user's timezone should be returned
      * 
      */
-    public function getMonitors($monitors = null, $customUptimeRatio = null, $logs = 0, $responseTimes = 0, $responseTimesAverage = 0, $alertContacts = 0, $showMonitorAlertContacts = 0, $showTimezone = 0)
+    public function getMonitors($monitors = null, $customUptimeRatio = null, $logs = 0, $responseTimes = 0, $responseTimesAverage = 0, $alertContacts = 0, $showMonitorAlertContacts = 0, $showTimezone = 0, $page = 0, $perPage = 50)
     {
         $url = $this->base_uri . '/getMonitors';
 
@@ -150,6 +150,10 @@ class UptimeRobot
         {
             $url .= '&customUptimeRatio=' . $this->getImplode($customUptimeRatio);
         }
+        $offset = $page * $perPage;
+
+        $url .= '&offset=' . $offset;
+        $url .= '&limit=' . $perPage;
 
         return $this->__fetch($url);
     }
